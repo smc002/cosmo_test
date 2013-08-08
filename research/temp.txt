@@ -1,0 +1,7 @@
+def test_does_not_raise_on_valid_input(self):
+    raised = False
+    try:
+        do_somthing(42)
+    except:
+        raised = True
+    self.assertFalse(raised, 'Exception raised')

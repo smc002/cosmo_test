@@ -1,0 +1,42 @@
+<style>  
+body {  
+  overflow: hidden;  
+  margin: 0px;  
+  padding: 0px;  
+  background: white;  
+}  
+  
+div:first-child {  
+  margin-top: 0px;  
+}  
+  
+div {  
+  cursor: pointer;  
+  text-align: center;  
+  padding: 1px 3px;  
+  font-family: sans-serif;  
+  font-size: 0.8em;  
+  width: 100px;  
+  margin-top: 1px;  
+  background: #cccccc;  
+}  
+div:hover {  
+  background: #aaaaaa;  
+}  
+</style>  
+  
+<script>  
+function login(username,password) {  
+    chrome.tabs.executeScript(null,  
+      {code:"document.getElementById('username').value = '"+username+"' "});  
+  chrome.tabs.executeScript(null,  
+      {code:"document.getElementById('password').value = '"+password+"' "});  
+  chrome.tabs.executeScript(null,  
+      {code:"document.getElementById('security').submit()"});  
+  
+  window.close();  
+}  
+</script>  
+<div onclick="login('admin','admin')" >µÇÂ¼Admin</div>  
+<div onclick="login('xielei','123123')" >µÇÂ¼xielei</div>  
+<div onclick="login('fgs1','123123')" >µÇÂ¼fgs1</div>  

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="https://10.144.10.217:9443/" />
+<title>cosmo_test_selenium_testcase1</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">cosmo_test_selenium_testcase1</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>blank</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/qm/web/console/QM Test Project#action=com.ibm.rqm.planning.home.actionDispatcher&amp;subAction=viewTestCase&amp;id=43</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.execute-icon-image.button-img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=td.dijitReset.dijitMenuItemIconCell</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForConfirmationPresent</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='com_ibm_asq_common_web_ui_internal_widgets_SelectionWizard_0']/div[2]/div[2]/div[3]/div/div[3]/span[3]/span/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>wa</td>
+	<td></td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

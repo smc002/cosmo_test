@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="https://10.144.10.217:9443/" />
+<title>selenium_test_case_login</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">selenium_test_case_login</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/qm/web/console</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=jazz_ui_MenuPopup_2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#jazz_ui_menu_MenuItem_3 &gt; td.dijitReset.dijitMenuItemLabel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=jazz_app_internal_LoginWidget_0_userId</td>
+	<td>test</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=jazz_app_internal_LoginWidget_0_password</td>
+	<td>test</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectWindow</td>
+	<td>null</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=toolbox-dock-window</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>LOCATOR_DETECTION_FAILED</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>toolbox-panel-iframe-inspector</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>LOCATOR_DETECTION_FAILED</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>relative=up</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>LOCATOR_DETECTION_FAILED</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>toolbox-panel-iframe-inspector</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>LOCATOR_DETECTION_FAILED</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>relative=up</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>LOCATOR_DETECTION_FAILED</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>toolbox-panel-iframe-inspector</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>LOCATOR_DETECTION_FAILED</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>relative=up</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>LOCATOR_DETECTION_FAILED</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>toolbox-panel-iframe-inspector</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>LOCATOR_DETECTION_FAILED</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>relative=up</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>LOCATOR_DETECTION_FAILED</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>toolbox-panel-iframe-inspector</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>LOCATOR_DETECTION_FAILED</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>relative=up</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>LOCATOR_DETECTION_FAILED</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>toolbox-panel-iframe-inspector</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>LOCATOR_DETECTION_FAILED</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>relative=up</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=ul.children &gt; li.container &gt; span.codebox &gt; ul.children &gt; li.container &gt; span.codebox &gt; ul.children &gt; li.container &gt; span.codebox &gt; ul.children &gt; li.container &gt; span.theme-twisty.expander</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>toolbox-panel-iframe-inspector</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=ul.children &gt; li.container &gt; span.codebox &gt; ul.children &gt; li.container &gt; span.codebox &gt; ul.children &gt; li.container &gt; span.codebox &gt; ul.children &gt; li.container &gt; span.theme-twisty.expander</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=ul.children &gt; li.container &gt; span.codebox &gt; ul.children &gt; li.container &gt; span.codebox &gt; ul.children &gt; li.container &gt; span.codebox &gt; ul.children &gt; li.container &gt; span.theme-twisty.expander</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>relative=up</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>relative=up</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=ul.children &gt; li.container &gt; span.codebox &gt; ul.children &gt; li.container &gt; span.codebox &gt; ul.children &gt; li.container &gt; span.codebox &gt; ul.children &gt; li.container &gt; span.codebox &gt; ul.children &gt; li.container &gt; span.theme-twisty.expander</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>toolbox-panel-iframe-inspector</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=ul.children &gt; li.container &gt; span.codebox &gt; ul.children &gt; li.container &gt; span.codebox &gt; ul.children &gt; li.container &gt; span.codebox &gt; ul.children &gt; li.container &gt; span.codebox &gt; ul.children &gt; li.container &gt; span.theme-twisty.expander</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=ul.children &gt; li.container &gt; span.codebox &gt; ul.children &gt; li.container &gt; span.codebox &gt; ul.children &gt; li.container &gt; span.codebox &gt; ul.children &gt; li.container &gt; span.codebox &gt; ul.children &gt; li.container &gt; span.theme-twisty.expander</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>relative=up</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>relative=up</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>LOCATOR_DETECTION_FAILED</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>toolbox-panel-iframe-inspector</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>LOCATOR_DETECTION_FAILED</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>relative=up</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>LOCATOR_DETECTION_FAILED</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>toolbox-panel-iframe-inspector</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>LOCATOR_DETECTION_FAILED</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//x:div[@id='root']/x:ul/x:li[3]/x:span[2]/x:ul/x:li[2]/x:span[2]/x:ul/x:li[3]/x:span[2]/x:ul/x:li/x:span[2]/x:ul/x:li[2]/x:span[2]/x:span/x:span[3]/x:span/x:span/x:span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>relative=up</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>relative=up</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>LOCATOR_DETECTION_FAILED</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>toolbox-panel-iframe-inspector</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>LOCATOR_DETECTION_FAILED</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>relative=up</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>LOCATOR_DETECTION_FAILED</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>toolbox-panel-iframe-inspector</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>LOCATOR_DETECTION_FAILED</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//x:div[@id='root']/x:ul/x:li[3]/x:span[2]/x:ul/x:li[2]/x:span[2]/x:ul/x:li[3]/x:span[2]/x:ul/x:li/x:span[2]/x:ul/x:li[3]/x:span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectWindow</td>
+	<td>null</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Add to Firefox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=addon-summary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=addon-summary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=jazz_app_internal_LoginWidget_0_userId</td>
+	<td>test</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=jazz_app_internal_LoginWidget_0_password</td>
+	<td>test</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

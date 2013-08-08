@@ -56,7 +56,7 @@ class COSMO_test_case_1(unittest.TestCase):
         self.assertFalse(Failed, 'Browser Automation Failed!')
 
     def tearDown(self):
-        time.sleep(15)
+        time.sleep(10)
         ea_auto.ea_close()
         pass
         #self.driver.close()

@@ -189,7 +189,7 @@ def test():
 
     ## s_app_name = "SciTE"
     ## s_app_name = "(Untitled) - SciTE"
-    s_app_name = "test.txt - SciTE"
+    s_app_name = "test.txt - Notepad"
     ## s_app_name = "Notepad2"
     ## s_app_name = "Notepad"
 

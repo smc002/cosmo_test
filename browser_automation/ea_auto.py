@@ -2,6 +2,7 @@ import win32process, win32event, win32api, win32con, win32com.client, win32gui
 import time, ctypes
 import os, os.path, sys
 import configparser
+from keybd_type import keybd_type
 
 title = 'NI Execution Adapter for IBM Rational Quality Manager'
 ea_path = r'C:\Program Files (x86)\National Instruments\Test Integration Adapter 1.0'
@@ -55,13 +56,6 @@ def keybd_clear(times):
         win32api.keybd_event(8, 0, 0, 0)
         win32api.keybd_event(8, 0, win32con.KEYEVENTF_KEYUP, 0)
 
-def keybd_type(inp_str):
-    for s in upper(inp_str):
-        print(s, ord(s))
-        win32api.keybd_event(ord(s), 0, 0, 0)
-        win32api.keybd_event(ord(s), 0, win32con.KEYEVENTF_KEYUP, 0)
-
-
 def test_positions():
     ea_start()
     time.sleep(5)
@@ -75,12 +69,10 @@ def test_positions():
 
 def test_keybd():
     ea_start()
-    time.sleep(1)
+    time.sleep(5)
     mouse_click(positions['server'])
     keybd_clear(20)
-    keybd_type(r' / ABC123')
+    keybd_type(r' /ABC123abc: ')
 
 if __name__ == "__main__":
-    ea_start()
-    time.sleep(20)
-    ea_close()
+    test_keybd()

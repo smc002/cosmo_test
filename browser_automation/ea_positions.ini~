@@ -1,8 +1,0 @@
-[login]
-login = [53, 175]
-server = [490, 254]
-username = [490, 301]
-password = [490, 349]
-project = [490, 398]
-apply = [73, 473]
-close = [408, 471]

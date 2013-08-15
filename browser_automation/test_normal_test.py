@@ -63,13 +63,13 @@ class COSMO_test_case_1(unittest.TestCase):
 
 if __name__ == "__main__":
     cnt = 0
-    logging_file = os.path.join(os.getenv('HOMEDRIVE'), os.getenv('HOMEPATH'), 'normal_test.log')
+    logging_file = os.path.join(os.getenv('HOMEDRIVE'), os.getenv('HOMEPATH'), 'test_normal.log')
     print("Logging to", logging_file)
     logging.basicConfig(
         level=logging.INFO,
         format='%(asctime)s : %(levelname)s : %(message)s',
         filename = logging_file,
-        filemode = 'w',
+        filemode = 'a',
         )
     log = logging.getLogger("COSMO.normal")
     while cnt < 1:

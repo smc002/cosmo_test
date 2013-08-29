@@ -7,7 +7,15 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import os, os.path, sys
 from removeall import removeall
-import ea_auto
+import ea_auto, browser_auto
+
+test_name = 'normal_test'
+test_root_folder = 'C:\\cosmo_autotest\\'
+if not os.path.exists(test_root_folder):
+    os.mkdir(test_root_folder)
+log_path = test_root_folder + test_name + '\\'
+if not os.path.exists(log_path):
+    os.mkdir(log_path)
 
 def repeat(times):
     def repeatHelper(f):
@@ -27,33 +35,8 @@ class COSMO_test_case_1(unittest.TestCase):
     #@repeat(100)
     def test_normal_test(self):
         log = logging.getLogger("COSMO.normal")
-        self.driver = webdriver.Firefox()
-        Failed = False
-        try:
-            self.driver.implicitly_wait(10)     
-            self.driver.get("https://10.144.10.217:9443/qm/") # Load page
-            elem = self.driver.find_element_by_name("j_username")
-            elem.send_keys("test")        
-            elem = self.driver.find_element_by_name("j_password") # Find the query box
-            elem.send_keys("test" + Keys.ENTER)
-            wait = WebDriverWait(self.driver, 20)
-            elem = wait.until(EC.presence_of_element_located((By.ID,"jazz_ui_toolbar_Button_1")))
-            self.driver.get("https://10.144.10.217:9443/qm/web/console/QM%20Test%20Project#action=com.ibm.rqm.planning.home.actionDispatcher&subAction=viewTestCase&id=43") # Load page      
-            elem = wait.until(EC.presence_of_element_located((By.ID,"widget_com_ibm_asq_common_web_ui_internal_widgets_layout_ASQValidateTextBox_0")))
-            elem = self.driver.find_element_by_css_selector('div.execute-icon-image.button-img')
-            elem.click()
-            elem = self.driver.find_element_by_css_selector('td.dijitReset.dijitMenuItemIconCell')
-            elem.click()
-            elem = wait.until(EC.element_to_be_clickable((By.XPATH,"//div[@class='actions-container']/span[3]/span[@class='button-div'][1]/button")))
-            elem.click()
-        except:
-            Failed = True
-            log.warning('Browser Automation Failed!')
-        else:
-            log.info('So happy everything works fine here')
-        finally:
-            self.driver.close()
-        self.assertFalse(Failed, 'Browser Automation Failed!')
+        passed = browser_auto.run_normal_test()
+        self.assertTrue(passed, 'Browser Automation Failed!')
 
     def tearDown(self):
         time.sleep(15)
@@ -63,7 +46,7 @@ class COSMO_test_case_1(unittest.TestCase):
 
 if __name__ == "__main__":
     cnt = 0
-    logging_file = os.path.join(os.getenv('HOMEDRIVE'), os.getenv('HOMEPATH'), 'test_normal.log')
+    logging_file = os.path.join(log_path, 'py_test.log')
     print("Logging to", logging_file)
     logging.basicConfig(
         level=logging.INFO,
@@ -71,7 +54,7 @@ if __name__ == "__main__":
         filename = logging_file,
         filemode = 'a',
         )
-    log = logging.getLogger("COSMO.normal")
+    log = logging.getLogger("COSMO")
     while cnt < 1:
         cnt += 1
         log.info("Normal Test No.{} begin.".format(cnt))

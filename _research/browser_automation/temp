@@ -1,0 +1,39 @@
+
+# This test would be failed. Possible reason is too many failed try of login would cause connect-refuse from server.
+# Update: the test with right password is enabled.
+    '''def test_config_password(self):
+        pwd_kwd_pair = {
+                'test'                  : 'Client State Changed From REGISTRATION To ACTIVE',
+                'test_wrong_password'   : 'LOGIN FAILED' ,
+                }
+        for pwd in pwd_kwd_pair:
+            test_passed = self.config_test(self, 'password', pwd, pwd_kwd_pair[pwd])
+            test_passed = self.config_test(self, 'username', pwd, pwd_kwd_pair[pwd])'''
+    def test_config_username(self):
+        right_username = [
+                'test',
+                ]
+        for user in right_username:
+            test_passed = self.config_test('username', user, active_str)
+
+    def test_config_password(self):
+        right_password = [
+                'test',
+                ]
+        for pwd in right_password:
+            test_passed = self.config_test('password', pwd, active_str)
+
+# server test
+    def test_config_server(self):
+        right_server = [
+                '10.144.10.217:9443/qm',
+                'https://10.144.10.217:9443/qm',
+                ]
+        wrong_server = [
+                'https://10.145.10.217:9443/qm',
+                ]
+        for ser in wrong_server:
+            test_passed = self.config_test('server', ser, active_str, expect_result=False)
+        for ser in right_server:
+            test_passed = self.config_test('server', ser, active_str)
+

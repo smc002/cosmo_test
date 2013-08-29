@@ -27,6 +27,7 @@ def focus_window():
         logger.warning('focus window failed, window not found!')
     ctypes.windll.user32.SwitchToThisWindow(win, True)
     ctypes.windll.user32.SetFocus(win)
+    time.sleep(0.5)
     return win
 
 def mouse_click(position):
@@ -40,8 +41,9 @@ def mouse_click(position):
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN,0,0)
     time.sleep(0.03)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP,0,0)
+    time.sleep(0.5)
 
-def item_click(tab=None, item='_tab', delay=0):
+def item_click(tab=None, item='_tab', delay=0.5):
     if None == tab:
         if '_tab' == item:
             logger.error('item = _tab is illegal')
@@ -49,7 +51,7 @@ def item_click(tab=None, item='_tab', delay=0):
         for tabgroup in positions:
             for n in positions[tabgroup]:
                 if item == n:
-                    logger.debug('item_click: tab = {}, item = {}, pos = {}'.format(tabgroup, n, positions[tabgroup][n]))
+                    logger.debug('item_click: tab = {}, item = {}, pos = {}'.format(tabgroup, n, positions[tabgroup]['_tab']))
                     mouse_click(positions[tabgroup]['_tab'])
                     mouse_click(positions[tabgroup][n])
                     time.sleep(delay)
@@ -82,7 +84,10 @@ def clear_type(inp_str):
 def ea_config(opt, inp_str):
     item_click(item=opt)
     clear_type(inp_str)
-    time.sleep(1)
+    time.sleep(0.5)
+# Click twice on Aplly button
+    item_click('_main', 'apply')
+    item_click('_main', 'apply')
 
 def ea_wait_process_end():
     if ea_handle == None:
@@ -123,7 +128,6 @@ def ea_start(delay=0):
         ea_handle = ea_start_process()
     else:
         ea_handle = ea_start_process()
-
 #debug
     #print(win32process.GetThreadTimes(ea_handle[0]))
     #print(win32process.GetProcessId(ea_handle[0]))
@@ -134,10 +138,11 @@ def ea_config_procedure(opt, inp_str, delay, log_path, log_file):
     logger = logging.getLogger("COSMO.ea.config")
     logger.critical('{} = {}, test begin.'.format(opt, inp_str))
     ea_start(delay=10)
-    ea_config(opt, inp_str)
     ea_config('folder', log_path)
-    item_click('_main', 'apply', delay=1)
     item_click('log', 'file_name', delay=1)
+    if opt != None:
+        ea_config(opt, inp_str)
+    item_click('_main', 'apply', delay=1)
     ea_close()
     ea_wait_process_end()
     logger.info("deleting EA's log file...")

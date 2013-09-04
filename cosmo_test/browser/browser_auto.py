@@ -6,15 +6,17 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import os, os.path, sys
-from removeall import removeall
-import ea_auto
+from constant_utility import removeall
+import ea.ea_auto
+from ea.ts_auto import ts_test_case_1
 
 def run_normal_test():
-    log = logging.getLogger("COSMO.browser")
+    logger = logging.getLogger("COSMO.browser")
     driver = webdriver.Firefox()
     Failed = False
+    logger.critical('Browser Automation begin.')
     try:
-        driver.implicitly_wait(10)     
+        driver.implicitly_wait(20)     
         driver.get("https://10.144.10.217:9443/qm/") # Load page
         elem = driver.find_element_by_name("j_username")
         elem.send_keys("test")        
@@ -32,11 +34,12 @@ def run_normal_test():
         elem.click()
     except:
         Failed = True
-        log.critical('Browser Automation Failed!')
+        logger.critical('Browser Automation Failed!')
     else:
-        log.critical('Browser Automation Succeed!')
+        logger.critical('Browser Automation Succeed!')
     finally:
         driver.close()
+    ts_test_case_1() # handle the click operation needed for C:\Users\Public\Documents\National Instruments\TestStand 2012\Examples\Demo\C\computer.seq
     return not Failed
     # assert(Failed, 'Browser Automation Failed!')
 

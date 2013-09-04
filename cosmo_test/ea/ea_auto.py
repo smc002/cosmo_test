@@ -1,19 +1,19 @@
 import win32process, win32event, win32api, win32con, win32com.client, win32gui
-import time, ctypes
+import time, ctypes, shutil
 import os, os.path, sys
 import configparser, logging
-from ea_keybd_type import keybd_type, keybd_clear
+from ea.ea_keybd_type import keybd_type, keybd_clear
+from constant_utility import title, ea_path, ea_name, config_file
+from constant_utility import default_server, default_username, default_password, default_project_area, default_adapter_name, default_resource_folder, default_log_folder 
 
-title = 'NI Execution Adapter for IBM Rational Quality Manager'
-ea_path = r'C:\Program Files (x86)\National Instruments\Test Integration Adapter 1.0'
-ea_name = 'Test Integration Adapter.exe'
-ea_tabs = ('_main', 'login', 'adapter', 'resources', 'http', 'upload', 'log')
 logger = logging.getLogger("COSMO.ea.auto")
 
 ea_handle = None
 positions = {}
 config = configparser.ConfigParser()
-config.read('ea_positions.ini')
+config.read('ea/ea_positions.ini')
+ea_tabs = config.sections()
+# ea_tabs = ('_main', 'login', 'adapter', 'resources', 'http', 'upload', 'log')
 for tab in ea_tabs:
     positions[tab] = dict(config[tab])
     for n in positions[tab]:
@@ -21,10 +21,13 @@ for tab in ea_tabs:
         pos = [int(x) for x in pos]
         positions[tab][n] = pos
 
-def focus_window():
+def focus_window(title=title, suppress_warning=False):
     win = win32gui.FindWindow(None, title)
     if win == 0:
-        logger.warning('focus window failed, window not found!')
+        if suppress_warning:
+            logger.debug('focus window failed, window "{}" not found!'.format(title))
+        else:
+            logger.warning('focus window failed, window "{}" not found!'.format(title))
     ctypes.windll.user32.SwitchToThisWindow(win, True)
     ctypes.windll.user32.SetFocus(win)
     time.sleep(0.5)
@@ -74,16 +77,18 @@ def item_click(tab=None, item='_tab', delay=0.5):
     time.sleep(delay)
     return True
 
-def clear_type(inp_str):
+def clear_type(inp_str, clear_length=30):
     logger.debug('clear_type: input string = {}'.format(inp_str))
     win = focus_window()
-    keybd_clear(50)
+    keybd_clear(clear_length)
     win = focus_window()
     keybd_type(inp_str)
 
-def ea_config(opt, inp_str):
+def ea_config(opt, inp_str, clear_length=30):
     item_click(item=opt)
-    clear_type(inp_str)
+    if 'folder' in opt:
+        clear_length = 80
+    clear_type(inp_str, clear_length)
     time.sleep(0.5)
 # Click twice on Aplly button
     item_click('_main', 'apply')
@@ -113,44 +118,28 @@ def ea_start_process():
             ea_path,
             win32process.STARTUPINFO())
 
-def ea_close(delay=0):
+def ea_close(delay=5):
     #print(win32process.GetProcessVersion(ea_handle[2]))
     time.sleep(0.1)
     item_click('_main', 'close')
     logger.info('UI of EA is end')
+    time.sleep(1)
+    ea_wait_process_end()
     time.sleep(delay)
 
 def ea_start(delay=0):
     # todo: look the thread of teststand
+    # todo: make sure thread of ea is not exist
     global ea_handle
     if ea_handle != None:
         ea_wait_process_end()
         ea_handle = ea_start_process()
     else:
         ea_handle = ea_start_process()
-#debug
-    #print(win32process.GetThreadTimes(ea_handle[0]))
-    #print(win32process.GetProcessId(ea_handle[0]))
     logger.debug('EA is started')
+    # item_click('_main', 'connect') EA GUI is not started yet, so could not click for now
+    # todo: make sure the "auto connect" option is on or off
     time.sleep(delay)
-
-def ea_config_procedure(opt, inp_str, delay, log_path, log_file):
-    logger = logging.getLogger("COSMO.ea.config")
-    logger.critical('{} = {}, test begin.'.format(opt, inp_str))
-    ea_start(delay=10)
-    ea_config('folder', log_path)
-    item_click('log', 'file_name', delay=1)
-    if opt != None:
-        ea_config(opt, inp_str)
-    item_click('_main', 'apply', delay=1)
-    ea_close()
-    ea_wait_process_end()
-    logger.info("deleting EA's log file...")
-    os.remove(log_file)
-    logger.debug("delay = {}".format(delay))
-    ea_start(delay=delay)
-    ea_close(delay=10)
-
 
 def test_positions():
     ea_start()
@@ -173,14 +162,14 @@ def test_positions():
         time.sleep(2)
     ea_close()'''
 
-def test_keybd():
+def test_keybd(): # todo: this function is for test only.
     ea_start()
     time.sleep(5)
     #item_click('login', 'server')
     print(item_click(item='server'))
     clear_type(r'C:\cosmo_auotest\test1()_;')
 
-def test_start_close():
+def test_start_close(): # todo: this function is for test only.
     for i in range(0, 100):
         print('i = ', i)
         ea_start(10)
@@ -189,6 +178,28 @@ def test_start_close():
         print('\tEA closed')
 
     print('CREATED!', ea_handle)
+
+def ea_initialize_test(
+        server = default_server,
+        username = default_username,
+        password = default_password,
+        project_area = default_project_area,
+        adapter_name = default_adapter_name,
+        resource_folder = default_resource_folder,
+        log_folder = default_log_folder,
+        delay=15):
+    ea_start(delay=delay)
+    ea_config('server', server)
+    ea_config('username', username)
+    ea_config('password', password)
+    ea_config('project_area', project_area)
+    ea_config('adapter_name', adapter_name)
+    ea_config('resource_folder', resource_folder)
+    ea_config('folder', log_folder)
+    ea_close()
+    logger.info('Copying the new configuration file to script location: \'ea/Configuration.ini\', for further use.')
+    shutil.copy(config_file, 'ea/Configuration.ini')
+
 if __name__ == "__main__":
     #test_keybd()
     test_start_close()

@@ -1,4 +1,4 @@
-import sys, os, logging
+import sys, os, logging, time
 
 
 test_root_folder = 'C:\\cosmo_autotest\\'
@@ -6,11 +6,24 @@ test_root_folder = 'C:\\cosmo_autotest\\'
 ea_version_number = '1.5'
 ts_version_number = '2012'
 
-title = 'NI Execution Adapter for IBM Rational Quality Manager'
-ea_path = r'C:\Program Files (x86)\National Instruments\Test Integration Adapter ' + ea_version_number
-ea_name = 'Test Integration Adapter.exe'
+global_delay_modify = 2
+def time_sleep(delay):
+    time.sleep(delay*global_delay_modify)
 
-config_path = r'C:\Users\Public\Documents\National Instruments\Test Integration Adapter ' + ea_version_number
+env_TestStand = os.getenv('TestStand')
+env_TestStandPublic = os.getenv('TestStandPublic')
+env_ea = os.path.join('\\'.join(env_TestStand.split('\\')[:-1]), 'Test Integration Adapter {}'.format(ea_version_number))
+env_eaPublic = os.path.join('\\'.join(env_TestStandPublic.split('\\')[:-1]), 'Test Integration Adapter')
+
+title = 'NI Execution Adapter for IBM Rational Quality Manager'
+# ea_path = r'C:\Program Files (x86)\National Instruments\Test Integration Adapter ' + ea_version_number
+ea_path = env_ea
+ea_name = 'Test Integration Adapter.exe'
+ts_path = r"{}\Bin".format(env_TestStand)
+ts_name = 'SeqEdit.exe'
+
+# config_path = r'C:\Users\Public\Documents\National Instruments\Test Integration Adapter ' + ea_version_number
+config_path = env_eaPublic
 config_file = os.path.join(config_path, 'Configuration.ini')
 active_kwd_list = ['Client State Changed From INITIALIZATION To LOGIN',
         'Client State Changed From LOGIN To REGISTRATION',
@@ -21,13 +34,17 @@ task_executed_kwd_list = [
         'Finished Execution',
         ]
 
+shutdown_kwd_list = [
+        'Client State Changed From ACTIVE To SHUTDOWN',
+        ]
 # ea basic settings. todo: move this to a file
 default_server = '10.144.10.217:9443/qm'
 default_username = 'test'
 default_password = 'test'
-default_project_area = 'QM Test Project'
+default_project_area = 'autotest project'
 default_adapter_name = 'msun autotest'
-default_resource_folder = r'C:\Users\Public\Documents\National Instruments\TestStand {}\Examples'.format(ts_version_number)
+# default_resource_folder = r'C:\Users\Public\Documents\National Instruments\TestStand {}\Examples'.format(ts_version_number)
+default_resource_folder = r'{}\Examples'.format(env_TestStandPublic)
 default_log_folder = r'C:\cosmo_autotest'
 
 tps_state_str = 'TPS: {}, step: {}, state: {}'
@@ -39,29 +56,33 @@ def initialize_test_folders(test_name):
     if not os.path.exists(ea_log_path):
         os.mkdir(ea_log_path)
     ea_log_file = os.path.join(ea_log_path, 'system log.html')
-    autotest_log_file = os.path.join(test_root_folder, test_name + '.log')
-    debug_log_file = os.path.join(test_root_folder, test_name + '_debug.log')
+    # autotest_log_file = os.path.join(test_root_folder, test_name + '.log')
+    # debug_log_file = os.path.join(test_root_folder, test_name + '_debug.log')
+    autotest_log_file = os.path.join(test_root_folder, 'auto_test' + '.log')
+    debug_log_file = os.path.join(test_root_folder, 'auto_test' + '_debug.log')
 
     print("Logging to", autotest_log_file)
     print("Logging to", debug_log_file)
 
     logger = logging.getLogger('COSMO')
-    logger.setLevel(logging.DEBUG)
-    ch = logging.StreamHandler()
-    ch.setLevel(logging.DEBUG)
-    ch.setFormatter(logging.Formatter('%(asctime)s : %(levelname)s : %(message)s'))
-    logger.addHandler(ch)
+    if logger.handlers == []:
+        logger.setLevel(logging.DEBUG)
+        ch = logging.StreamHandler()
+        ch.setLevel(logging.DEBUG)
+        ch.setFormatter(logging.Formatter('%(asctime)s : %(levelname)s : %(message)s'))
+        logger.addHandler(ch)
 
-    ch2 = logging.StreamHandler(open(autotest_log_file,'at'))
-    ch2.setLevel(logging.WARNING)
-    ch2.setFormatter(logging.Formatter('%(asctime)s : %(levelname)s : %(message)s'))
-    logger.addHandler(ch2)
+        ch2 = logging.StreamHandler(open(autotest_log_file,'at'))
+        ch2.setLevel(logging.WARNING)
+        ch2.setFormatter(logging.Formatter('%(asctime)s : %(levelname)s : %(message)s'))
+        logger.addHandler(ch2)
 
-    ch_debug = logging.StreamHandler(open(debug_log_file,'at'))
-    ch_debug.setLevel(logging.DEBUG)
-    ch_debug.setFormatter(logging.Formatter('%(asctime)s : %(levelname)s : %(message)s'))
-    logger.addHandler(ch_debug)
+        ch_debug = logging.StreamHandler(open(debug_log_file,'at'))
+        ch_debug.setLevel(logging.DEBUG)
+        ch_debug.setFormatter(logging.Formatter('%(asctime)s : %(levelname)s : %(message)s'))
+        logger.addHandler(ch_debug)
 
+    logger.critical('Test name: {}, initialize folder finished'.format(test_name))
     return ea_log_path, ea_log_file, logger
 
 def lookup_keyword_in_ea_log(keywords, ea_log):

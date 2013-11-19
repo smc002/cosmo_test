@@ -1,33 +1,33 @@
 import unittest, time, shutil, datetime, glob
 import os, os.path, sys
 import logging
-from ea.ea_auto import item_click as ea_click, ea_start, ea_close, ea_config, ea_wait_process_end 
-import browser.browser_auto as browser_auto
+from ea_auto import item_click as ea_click, ea_start, ea_close, ea_config, ea_wait_process_end 
+import browser_auto as browser_auto
 from constant_utility import test_root_folder, config_file, active_kwd_list, task_executed_kwd_list, tps_state_str, initialize_test_folders, lookup_keyword_in_ea_log, removeall
+import config_file
 
 
 test_name = 'config_login'
 tps_name = 'Configurations on the Login tab'
 TEST_REPEAT = 1
-ea_log_path, ea_log_file, logger = initialize_test_folders(test_name)
 
+# log file test
+# http://van.natinst.com/van/procedure/show/1548741
 class COSMO_test_case_config_login(unittest.TestCase):
 
     def setUp(self):
-        shutil.copy('ea/Configuration.ini', config_file)
         pass
 
     def config_test(self, opt, inp_str, veri_keywords=active_kwd_list, expect_result=True):
+        ea_log_path, ea_log_file, logger = initialize_test_folders(test_name)
+        config_file.initialize(log_folder = ea_log_path)
+        removeall(ea_log_path)
         logger = logging.getLogger("COSMO.config.login")
         tps_step = opt + ' = ' + inp_str
         logger.critical(tps_state_str.format(tps_name, tps_step, 'BEGIN'))
-        ea_start(delay=15)
-        ea_click(item='file_name')
-        ea_config('folder', ea_log_path)
+
         if opt != None:
-            ea_config(opt, inp_str)
-        ea_close()
-        removeall(ea_log_path)
+            config_file.change_option('Server', opt, '"{}"'.format(inp_str))
         ea_start(delay=15)
         ea_close()
         try:
@@ -63,8 +63,11 @@ class COSMO_test_case_config_login(unittest.TestCase):
         right_password = [
                 'test',
                 ]
-        for pwd in right_password:
-            self.config_test('password', pwd)
+        wrong_password = [
+                'test_wrong',
+                ]
+        for pwd in wrong_password:
+            self.config_test('password', pwd, expect_result = False)
 
 # server test
     def test_config_server(self):
@@ -73,10 +76,10 @@ class COSMO_test_case_config_login(unittest.TestCase):
                 'https://10.144.10.217:9443/qm',
                 ]
         wrong_server = [
-                'https://10.145.10.217:9443/qm',
+                '10.145.10.217:9443/qm',
                 ]
         for ser in wrong_server:
-            test_passed = self.config_test('server', ser, expect_result=False)
+            test_passed = self.config_test('server address', ser, expect_result=False)
         for ser in right_server:
             test_passed = self.config_test('server', ser)
 

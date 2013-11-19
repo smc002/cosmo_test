@@ -1,14 +1,14 @@
 import time, shutil, datetime, glob
 import os, os.path, sys
 import logging
-from ea.ea_auto import item_click as ea_click, ea_start, ea_close, ea_config, ea_wait_process_end, ea_initialize_test
-import browser.browser_auto as browser_auto
-from constant_utility import test_root_folder, config_file, active_kwd_list, task_executed_kwd_list, tps_state_str, initialize_test_folders, lookup_keyword_in_ea_log, removeall
+from ea_auto import item_click as ea_click, ea_start, ea_close, ea_config, ea_wait_process_end, ea_initialize_test
+import browser_auto as browser_auto
+from constant_utility import config_file, active_kwd_list, task_executed_kwd_list, initialize_test_folders, lookup_keyword_in_ea_log, removeall, time_sleep
+import config_file
 
 
 test_name = 'stress_test'
 TEST_REPEAT = 1000
-ea_log_path, ea_log_file, logger = initialize_test_folders(test_name)
 
 def repeat(times):
     def repeatHelper(f):
@@ -18,11 +18,12 @@ def repeat(times):
         return callHelper
     return repeatHelper
 
-if __name__ == "__main__":
-
+def stress_test(repeat_times = 10):
+    ea_log_path, ea_log_file, logger = initialize_test_folders(test_name)
     logger.critical("Initialize Stress Test.")
 
-    ea_initialize_test(log_folder=ea_log_path)
+    #ea_initialize_test(log_folder=ea_log_path)
+    config_file.initialize(log_folder=ea_log_path)
     '''shutil.copy('ea/Configuration.ini', config_file)
     ea_start(delay=15)
     ea_click(item='file_name')
@@ -33,7 +34,7 @@ if __name__ == "__main__":
 
     cnt = 0
     passed_number = 0
-    while cnt < TEST_REPEAT:
+    while cnt < repeat_times:
         cnt += 1
 
         logger.critical("Stress Test No.{} BEGIN.".format(cnt))
@@ -58,8 +59,12 @@ if __name__ == "__main__":
         logger.critical('Pass rate till now is {}'.format(passed_number/cnt))
 
         if cnt%100 == 0:
-            time.sleep(2)  #delete temp file too hurry might prevent firefox from closing
+            time_sleep(2)  #delete temp file too hurry might prevent firefox from closing
             removeall(r'C:\Users\msun\AppData\Local\temp')  #the files here could be too large, if running for hours
+
+if __name__ == "__main__":
+    stress_test(50)
+
     
     '''while 1:
         try:
@@ -72,3 +77,4 @@ if __name__ == "__main__":
             suc_cnt += 1
             print("Test {} successed.".format(suc_cnt))
             logging.info("Test {} successed.".format(suc_cnt))'''
+

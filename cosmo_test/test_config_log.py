@@ -1,31 +1,30 @@
 import unittest, time, shutil, datetime, glob
 import os, os.path, sys
 import logging
-from ea.ea_auto import item_click as ea_click, ea_start, ea_close, ea_config, ea_wait_process_end
-import browser.browser_auto as browser_auto
-from constant_utility import test_root_folder, config_file, active_kwd_list, task_executed_kwd_list, tps_state_str, initialize_test_folders, lookup_keyword_in_ea_log, removeall
+from ea_auto import item_click as ea_click, ea_start, ea_close, ea_config, ea_wait_process_end
+import browser_auto as browser_auto
+from constant_utility import test_root_folder, config_file, active_kwd_list, task_executed_kwd_list, tps_state_str, initialize_test_folders, lookup_keyword_in_ea_log, removeall, time_sleep
+import config_file
 
 
 test_name = 'config_log'
 TEST_REPEAT = 1
-ea_log_path, ea_log_file, logger = initialize_test_folders(test_name)
 
+# log file test
+# http://van.natinst.com/van/procedure/show/1548633
 class COSMO_test_case_config_log(unittest.TestCase):
 
     def setUp(self):
-        shutil.copy('ea/Configuration.ini', config_file)
         pass
 
-# log file test
     def test_config_log(self):
+        ea_log_path, ea_log_file, logger = initialize_test_folders(test_name)
         logger = logging.getLogger("COSMO.config.log")
         tps_name = 'Configurations of log file'
         # initialize
         tps_step = 'Initialize log path'
         logger.critical(tps_state_str.format(tps_name, tps_step, 'BEGIN'))
-        ea_start(delay=15)
-        ea_config('folder', ea_log_path)
-        ea_close()
+        config_file.initialize(log_folder= ea_log_path)
         # step 1-2
         removeall(ea_log_path)
         tps_step = '1 - 2'
@@ -49,7 +48,7 @@ class COSMO_test_case_config_log(unittest.TestCase):
         logger.critical(tps_state_str.format(tps_name, tps_step, 'BEGIN'))
         ea_start(delay=15)
         passed = browser_auto.run_normal_test()
-        time.sleep(20)
+        time_sleep(20)
         ea_close()
         try:
             self.assertTrue(passed, 'Browser Automation Failed!')
@@ -69,9 +68,7 @@ class COSMO_test_case_config_log(unittest.TestCase):
         logger.critical('TPS: {}, step: {}, test begin.'.format(tps_name, tps_step))
         ea_log_path_exists = ea_log_path + 'exists\\'
         ea_log_file_step4 = os.path.join(ea_log_path_exists, 'system log.html')
-        ea_start(delay=15)
-        ea_config('folder', ea_log_path_exists)
-        ea_close()
+        config_file.change_option('Client', 'systemlogfolder', '"{}"'.format(ea_log_path_exists))
         removeall(ea_log_path)
         os.mkdir(ea_log_path_exists)
         ea_start(delay=15)
@@ -92,9 +89,7 @@ class COSMO_test_case_config_log(unittest.TestCase):
         logger.critical('TPS: {}, step: {}, test begin.'.format(tps_name, tps_step))
         ea_log_path_not_exists = ea_log_path + 'not_exists\\'
         ea_log_file_step5 = os.path.join(ea_log_path_not_exists, 'system log.html')
-        ea_start(delay=15)
-        ea_config('folder', ea_log_path_not_exists)
-        ea_close()
+        config_file.change_option('Client', 'systemlogfolder', '"{}"'.format(ea_log_path_not_exists))
         removeall(ea_log_path)
         ea_start(delay=15)
         ea_close()
@@ -112,10 +107,8 @@ class COSMO_test_case_config_log(unittest.TestCase):
         # step 6
         tps_step = '6'
         logger.critical('TPS: {}, step: {}, test begin.'.format(tps_name, tps_step))
-        ea_start(delay=15)
-        ea_click(item='file_name_time')
-        ea_config('folder', ea_log_path)
-        ea_close()
+        config_file.change_option('Client', 'systemlogfolder', '"{}"'.format(ea_log_path))
+        config_file.change_option('Client', 'systemlognamestyle', '"TimeStampedFilename"')
         removeall(ea_log_path)
         ea_start(delay=15)
         ea_close()
